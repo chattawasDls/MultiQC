@@ -159,5 +159,5 @@ def parse_contig_mean_cov(f):
 
     m = re.search(r"(.*).(\S*)_contig_mean_cov_?(\S*)?.csv", f["fn"])
     sample, phenotype = m.group(1), m.group(2)
-    f["s_name"] = sample
+    #f["s_name"] = sample
     return {phenotype: [main_contig_perchrom_data, other_contig_perchrom_data]}
