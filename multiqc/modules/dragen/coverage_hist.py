@@ -141,5 +141,5 @@ def parse_fine_hist(f):
 
     m = re.search(r"(.*).(\S*)_fine_hist_?(\S*)?.csv", f["fn"])
     sample, phenotype = m.group(1), m.group(2)
-    f["s_name"] = sample
+    #f["s_name"] = sample
     return {phenotype: (data, cum_data, depth_1pc)}
