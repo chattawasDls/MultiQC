@@ -49,7 +49,6 @@ def make_headers(parsed_metric_ids, metrics):
 
     # Init headers for an own separate table
     own_tabl_headers = OrderedDict()
-
     for metric in metrics:
         col = dict(
             title=metric.title,
