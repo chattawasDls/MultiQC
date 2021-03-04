@@ -38,7 +38,6 @@ class DragenVCMetrics(BaseMultiqcModule):
                 all_metric_names.add(m)
 
         gen_stats_headers, vc_table_headers = make_headers(all_metric_names, VC_METRICS)
-
         self.general_stats_addcols(data_by_sample, gen_stats_headers, namespace=NAMESPACE)
 
         self.add_section(
@@ -202,8 +201,8 @@ VC_METRICS = [
         Metric(
             "In dbSNP",
             "In dbSNP",
-            None,
-            None,
+            "hid",
+            "hid",
             "",
             "Number of variants detected that are present in the dbsnp reference file. If no dbsnp file " "",
             "is provided via the --bsnp option, then both the In dbSNP and Novel metrics show as NA.",

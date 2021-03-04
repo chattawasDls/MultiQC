@@ -7,7 +7,7 @@ import re
 from collections import defaultdict
 from multiqc.modules.base_module import BaseMultiqcModule
 from multiqc.plots import bargraph, table
-from .utils import make_headers, Metric, exist_and_number
+from .utils import make_headers, Metric, exist_and_number, config
 
 # Initialise the logger
 import logging
@@ -288,8 +288,8 @@ def parse_mapping_metrics_file(f):
     We are reporting summary metrics in the general stats table, and per-read-group in a separate table.
     """
 
-    #f["s_name"] = re.search(r"(.*).mapping_metrics.csv", f["fn"]).group(1)
-
+    f["s_name"] = re.search(r"(.*).mapping_metrics.csv", f["fn"]).group(1)
+    print(f["s_name"])
     data_by_readgroup = defaultdict(dict)
     data_by_phenotype = defaultdict(dict)
 
@@ -328,7 +328,7 @@ def parse_mapping_metrics_file(f):
             data_by_readgroup[readgroup][metric] = value
             if percentage is not None:
                 data_by_readgroup[readgroup][metric + " pct"] = percentage
-
+    
     # adding some missing values that we wanna report for consistency
     for data in itertools.chain(data_by_readgroup.values(), data_by_phenotype.values()):
         # fixing when deduplication wasn't performed
@@ -351,6 +351,12 @@ def parse_mapping_metrics_file(f):
             data["Mismatched bases R2"] = 0
         if data["Mismatched bases R2 (excl. indels)"] == "NA":
             data["Mismatched bases R2 (excl. indels)"] = 0
+        if data["Insert length: mean"] == 0 and data["Insert length: median"] == 0 \
+            and data["Insert length: standard deviation"] == 0 \
+            and data["Soft-clipped bases R2"] == 0 \
+            and data["Mismatched bases R2"] == 0 \
+            and data["Mismatched bases R2 (excl. indels)"] == 0 :
+            config.remove_sections.append('dragen-mapped-paired-duplicated')
             
 
         # adding alignment percentages
