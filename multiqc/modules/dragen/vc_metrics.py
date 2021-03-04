@@ -201,8 +201,8 @@ VC_METRICS = [
         Metric(
             "In dbSNP",
             "In dbSNP",
-            "hid",
-            "hid",
+            "#",
+            "#", 
             "",
             "Number of variants detected that are present in the dbsnp reference file. If no dbsnp file " "",
             "is provided via the --bsnp option, then both the In dbSNP and Novel metrics show as NA.",
