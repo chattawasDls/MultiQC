@@ -369,6 +369,7 @@ def parse_coverage_metrics(f):
     for line in f["f"].splitlines():
         fields = line.split(",")
         metric = fields[2]
+        metric = metric.replace('target region','genome')
         value = fields[3]
         try:
             value = int(value)
@@ -392,5 +393,6 @@ def parse_coverage_metrics(f):
 
     m = re.search(r"(.*).(\S*)_coverage_metrics_?(\S*)?.csv", f["fn"])
     sample, phenotype = m.group(1), m.group(2)
-    #f["s_name"] = sample
+    f["s_name"] = sample
+
     return {phenotype: data}
