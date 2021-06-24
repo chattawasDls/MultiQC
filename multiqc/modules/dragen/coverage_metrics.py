@@ -31,7 +31,6 @@ class DragenCoverageMetrics(BaseMultiqcModule):
 
         # Filter to strip out ignored sample names:
         data_by_phenotype_by_sample = self.ignore_samples(data_by_phenotype_by_sample)
-
         # Merge tumor and normal data:
         data_by_sample = defaultdict(dict)
         for sn in data_by_phenotype_by_sample:
@@ -40,10 +39,8 @@ class DragenCoverageMetrics(BaseMultiqcModule):
                 if phenotype == "normal":
                     new_sn = sn + "_normal"
                 data_by_sample[new_sn] = data_by_phenotype_by_sample[sn][phenotype]
-
         if not data_by_sample:
             return set()
-
         all_metric_names = set()
         for sn, sdata in data_by_sample.items():
             for m in sdata.keys():
@@ -119,7 +116,7 @@ COV_METRICS = list(
                 # Read stats:
                 Metric("Aligned reads", "Aln reads", "hid", "#", "reads", "Total number of aligned reads."),
                 Metric(
-                    "Aligned reads in region",
+                    "Aligned reads in {}",
                     "Reads on trg",
                     "hid",
                     "%",
@@ -128,7 +125,7 @@ COV_METRICS = list(
                 ),
                 Metric("Aligned bases", "Aln bases", "hid", "#", "bases", "Total number of aligned bases."),
                 Metric(
-                    "Aligned bases in region",
+                    "Aligned bases in {}",
                     "Bases on trg",
                     "hid",
                     "%",
